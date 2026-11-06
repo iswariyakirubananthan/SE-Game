@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}Player Profile – Banana Quest{% endblock %}
+
+{% block content %}
+<!-- Module 9: User Profile (Theme D: Virtual Identity) -->
+<div style="max-width: 900px; margin: 0 auto;">
+
+  <!-- Profile Identity Card -->
+  <div class="card" style="margin-bottom: 2rem;">
+    <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+      <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-purple), var(--cyber-blue)); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; box-shadow: 0 0 20px var(--purple-glow);">
+        🍌
+      </div>
+      <div style="flex: 1;">
+        <h1 style="font-size: 2rem; font-weight: 900; line-height: 1.2;">
+          {{ user['username'] }}
+        </h1>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.25rem;">
+          📧 {{ user['email'] }} &nbsp;•&nbsp; 🗓️ Joined {{ user['created_at'] }}
+        </p>
+      </div>
+      <div>
+        <a href="{{ url_for('game.difficulty') }}" class="btn btn-banana">Play Game</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Performance Metrics -->
+  <div class="stats-grid" style="margin-bottom: 2rem;">
+    <div class="stat-card">
+      <div class="stat-icon yellow">🏆</div>
+      <div>
+        <div class="stat-value">{{ stats.highest_score }}</div>
+        <div class="stat-label">Personal Best</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon blue">🎮</div>
+      <div>
+        <div class="stat-value">{{ stats.total_games }}</div>
+        <div class="stat-label">Total Matches</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon green">⭐</div>
+      <div>
+        <div class="stat-value">{{ stats.total_score }}</div>
+        <div class="stat-label">Cumulative Score</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">📊</div>
+      <div>
+        <div class="stat-value">{{ stats.average_score }}</div>
+        <div class="stat-label">Avg. Points / Game</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Game History Table -->
+  <div class="card">
+    <h3 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 1.25rem;">
+      Full Gaming History
+    </h3>
+
+    {% if history %}
+      <div class="table-container">
+        <table class="game-table">
+          <thead>
+            <tr>
+              <th>Match ID</th>
+              <th>Difficulty Tier</th>
+              <th>Score Earned</th>
+              <th>Date Played</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in history %}
+              <tr>
+                <td style="color: var(--text-dim); font-weight: 700;">#{{ item.id }}</td>
+                <td>
+                  <span style="font-weight: 700; color: {% if item.difficulty == 'Easy' %}#6ee7b7{% elif item.difficulty == 'Medium' %}#fde68a{% else %}#fda4af{% endif %};">
+                    {{ item.difficulty }}
+                  </span>
+                </td>
+                <td style="font-weight: 800; font-size: 1.15rem; color: #ffffff;">
+                  {{ item.score }} pts
+                </td>
+                <td style="color: var(--text-muted); font-size: 0.9rem;">
+                  {{ item.created_at }}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div style="text-align: center; padding: 2.5rem; color: var(--text-muted);">
+        <p style="font-size: 1.1rem; margin-bottom: 1rem;">You haven't played any games yet.</p>
+        <a href="{{ url_for('game.difficulty') }}" class="btn btn-banana btn-sm">Start Playing Now</a>
+      </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

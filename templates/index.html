@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Home – Banana Quest Brain Challenge{% endblock %}
+
+{% block content %}
+<!-- Module 1: Home Page -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">🍌 Official University Puzzle Game</div>
+    <h1 class="hero-title">
+      Sharpen Your Mind in <span>Banana Quest</span>
+    </h1>
+    <p class="hero-desc">
+      Solve visual mathematical puzzles in real time! Decode the equations, beat the countdown timer, 
+      challenge yourself across multiple difficulty tiers, and race to the top of the global leaderboard.
+    </p>
+
+    <div class="hero-actions">
+      {% if g.user %}
+        <a href="{{ url_for('game.difficulty') }}" class="btn btn-banana btn-lg">🎮 Play Now</a>
+        <a href="{{ url_for('dashboard.index') }}" class="btn btn-outline btn-lg">📊 View Dashboard</a>
+      {% else %}
+        <a href="{{ url_for('auth.register') }}" class="btn btn-banana btn-lg">✨ Register & Play</a>
+        <a href="{{ url_for('auth.login') }}" class="btn btn-cyan btn-lg">🔑 Player Login</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="hero-preview">
+    <div class="hero-badge-card">
+      <div class="hero-puzzle-icon">🍌🧠⚡</div>
+      <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem;">Math Puzzle Engine</h3>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+        Powered by University of Bedfordshire Banana Game API
+      </p>
+      <div style="display: flex; gap: 0.5rem; justify-content: center;">
+        <span style="background: rgba(16,185,129,0.2); color:#6ee7b7; padding: 0.3rem 0.75rem; border-radius: 9999px; font-size: 0.8rem; font-weight:700;">Easy</span>
+        <span style="background: rgba(251,191,36,0.2); color:#fde68a; padding: 0.3rem 0.75rem; border-radius: 9999px; font-size: 0.8rem; font-weight:700;">Medium</span>
+        <span style="background: rgba(244,63,94,0.2); color:#fda4af; padding: 0.3rem 0.75rem; border-radius: 9999px; font-size: 0.8rem; font-weight:700;">Hard</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Assignment Concepts Feature Section -->
+<section class="features-section">
+  <div class="section-header">
+    <h2 class="section-title">Core Computer Science Concepts</h2>
+    <p class="section-subtitle">Engineered to showcase modern software engineering principles</p>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🌿</div>
+      <h3 class="feature-title">Version Control</h3>
+      <p class="feature-desc">
+        Git repository with structured feature branching, meaningful commit history, and systematic code merging.
+      </p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🌐</div>
+      <h3 class="feature-title">Interoperability</h3>
+      <p class="feature-desc">
+        Real-time HTTP REST communication with the University of Bedfordshire Banana API with fault-tolerant fallback.
+      </p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3 class="feature-title">Event-Driven Design</h3>
+      <p class="feature-desc">
+        Client-side event listeners for keyboard entry, asynchronous DOM updates via Fetch API, and countdown timer ticks.
+      </p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🛡️</div>
+      <h3 class="feature-title">Virtual Identity</h3>
+      <p class="feature-desc">
+        Secure player registration with Werkzeug password hashing, session cookies, and persistent score associations.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

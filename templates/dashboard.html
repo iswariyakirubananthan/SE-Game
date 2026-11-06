@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard – Banana Quest{% endblock %}
+
+{% block content %}
+<!-- Module 4: Game Dashboard -->
+<div class="dashboard-header">
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+    <div>
+      <h1 class="welcome-text">
+        Welcome, <span class="brand-highlight">{{ g.user['username'] }}</span>! 👋
+      </h1>
+      <p style="color: var(--text-muted); font-size: 1.05rem;">
+        Ready to test your math reflexes with fresh banana puzzles?
+      </p>
+    </div>
+    <div style="display: flex; gap: 0.75rem;">
+      <a href="{{ url_for('game.difficulty') }}" class="btn btn-banana btn-lg">⚡ Play New Game</a>
+    </div>
+  </div>
+</div>
+
+<!-- Player Statistics Grid -->
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-icon yellow">🏆</div>
+    <div>
+      <div class="stat-value">{{ stats.highest_score }}</div>
+      <div class="stat-label">Highest Score</div>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon blue">🎮</div>
+    <div>
+      <div class="stat-value">{{ stats.total_games }}</div>
+      <div class="stat-label">Games Played</div>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon green">⭐</div>
+    <div>
+      <div class="stat-value">{{ stats.total_score }}</div>
+      <div class="stat-label">Total Points</div>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon">📈</div>
+    <div>
+      <div class="stat-value">{{ stats.average_score }}</div>
+      <div class="stat-label">Average Score</div>
+    </div>
+  </div>
+</div>
+
+<!-- Quick Navigation Cards -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+  <div class="card" style="text-align: center;">
+    <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">🍌</div>
+    <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem;">Start Playing</h3>
+    <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.5rem;">
+      Choose your difficulty level and solve real-time API puzzles.
+    </p>
+    <a href="{{ url_for('game.difficulty') }}" class="btn btn-banana" style="width: 100%;">Choose Difficulty</a>
+  </div>
+
+  <div class="card" style="text-align: center;">
+    <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">🏅</div>
+    <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem;">Leaderboard</h3>
+    <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.5rem;">
+      See how your math high scores rank against other university players.
+    </p>
+    <a href="{{ url_for('leaderboard.index') }}" class="btn btn-cyan" style="width: 100%;">View Rankings</a>
+  </div>
+
+  <div class="card" style="text-align: center;">
+    <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">👤</div>
+    <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem;">Player Profile</h3>
+    <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.5rem;">
+      Inspect your virtual identity, account details, and full score history.
+    </p>
+    <a href="{{ url_for('profile.index') }}" class="btn btn-outline" style="width: 100%;">Open Profile</a>
+  </div>
+</div>
+
+<!-- Recent Games Table -->
+<div class="card">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+    <h3 style="font-size: 1.3rem; font-weight: 800;">Recent Game History</h3>
+    <a href="{{ url_for('profile.index') }}" style="font-size: 0.9rem; font-weight: 600;">View All History →</a>
+  </div>
+
+  {% if recent_scores %}
+    <div class="table-container">
+      <table class="game-table">
+        <thead>
+          <tr>
+            <th>Difficulty</th>
+            <th>Final Score</th>
+            <th>Date & Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for record in recent_scores %}
+            <tr>
+              <td>
+                <span style="font-weight: 700; color: {% if record.difficulty == 'Easy' %}#6ee7b7{% elif record.difficulty == 'Medium' %}#fde68a{% else %}#fda4af{% endif %};">
+                  {{ record.difficulty }}
+                </span>
+              </td>
+              <td style="font-weight: 800; font-size: 1.1rem; color: #ffffff;">{{ record.score }} pts</td>
+              <td style="color: var(--text-muted);">{{ record.created_at }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
+      <p style="font-size: 1.1rem; margin-bottom: 1rem;">No games recorded yet. Your journey begins now!</p>
+      <a href="{{ url_for('game.difficulty') }}" class="btn btn-banana btn-sm">Play Your First Game</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

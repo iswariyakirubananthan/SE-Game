@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Banana Quest – Brain Challenge{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <a href="{{ url_for('home.index') }}" class="nav-brand">
+      <span class="brand-icon">🍌</span>
+      <span>Banana<span class="brand-highlight">Quest</span></span>
+    </a>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="{{ url_for('home.index') }}" class="nav-link">Home</a></li>
+        <li><a href="{{ url_for('leaderboard.index') }}" class="nav-link">Leaderboard</a></li>
+        
+        {% if g.user %}
+          <li><a href="{{ url_for('dashboard.index') }}" class="nav-link">Dashboard</a></li>
+          <li><a href="{{ url_for('game.difficulty') }}" class="nav-link btn btn-banana btn-sm">Play Now</a></li>
+          <li><a href="{{ url_for('profile.index') }}" class="nav-user">👤 {{ g.user['username'] }}</a></li>
+          <li><a href="{{ url_for('auth.logout') }}" class="btn btn-outline btn-sm">Logout</a></li>
+        {% else %}
+          <li><a href="{{ url_for('auth.login') }}" class="nav-link">Login</a></li>
+          <li><a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-sm">Register</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Flash Message Notifications -->
+  <div class="flash-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">
+            <span>{{ message }}</span>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
+
+  <!-- Dynamic Page Content -->
+  <main class="main-container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="footer">
+    <p>🍌 <strong>Banana Quest – Brain Challenge</strong> | University of Bedfordshire</p>
+    <p style="margin-top: 0.35rem;">
+      Distributed Architecture • Python Flask • SQLite • Interoperable REST API • Event-Driven Frontend
+    </p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
