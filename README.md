@@ -284,3 +284,4 @@ Use this structured presentation plan for your assignment video:
 - **External REST API**: University of Bedfordshire Banana Game API by Marc Conrad (`http://marcconrad.com/uob/banana/api.php?out=json`).
 - **Icons & Visuals**: UTF-8 Emoji graphics and Google Fonts (Plus Jakarta Sans).
 - **Backend & Frontend Code**: Authored for the Computer Science undergraduate assignment at the University of Bedfordshire following modern software engineering principles.
+
