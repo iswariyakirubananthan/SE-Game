@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CIS046-3 Progress Form – Iswariya Kirubananthan (2541869)</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 12mm 15mm;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Calibri, 'Segoe UI', Arial, sans-serif;
+      color: #0f172a;
+      background: #f1f5f9;
+      line-height: 1.35;
+      padding: 20px;
+    }
+    .sheet {
+      background: #ffffff;
+      max-width: 210mm;
+      margin: 0 auto;
+      padding: 16mm 18mm;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+    }
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .sheet {
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+    .header-title {
+      font-size: 15pt;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      row-gap: 6px;
+      column-gap: 20px;
+      font-size: 10.5pt;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #cbd5e1;
+    }
+    .meta-item strong {
+      color: #0f172a;
+    }
+    .signature-text {
+      font-family: 'Brush Script MT', 'Lucida Handwriting', cursive, serif;
+      font-size: 14pt;
+      color: #1e3a8a;
+      font-weight: bold;
+      margin-left: 4px;
+    }
+    .instructions {
+      font-size: 8.5pt;
+      color: #475569;
+      font-style: italic;
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+    .section-card {
+      border: 1px solid #94a3b8;
+      border-radius: 4px;
+      padding: 8px 12px;
+      margin-bottom: 9px;
+      background: #fafafa;
+    }
+    .section-heading {
+      font-size: 10.5pt;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 2px;
+    }
+    .section-question {
+      font-size: 9pt;
+      font-style: italic;
+      color: #475569;
+      margin-bottom: 4px;
+    }
+    .section-answer {
+      font-size: 9.5pt;
+      color: #0f172a;
+      text-align: justify;
+      line-height: 1.32;
+    }
+    .print-bar {
+      max-width: 210mm;
+      margin: 0 auto 15px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1e293b;
+      padding: 12px 20px;
+      border-radius: 8px;
+      color: #ffffff;
+    }
+    .btn-print {
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 8px 18px;
+      font-size: 10pt;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-print:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Print Control Bar (Hidden when printing) -->
+  <div class="print-bar no-print">
+    <div>
+      <strong>📄 CIS046-3 Week 8 Progress Review Form</strong>
+      <span style="opacity: 0.8; font-size: 9pt; margin-left: 8px;">(Ready for printing & sign-off)</span>
+    </div>
+    <button onclick="window.print()" class="btn-print">
+      🖨️ Print Form / Save as PDF (Ctrl + P)
+    </button>
+  </div>
+
+  <div class="sheet">
+    <!-- Title -->
+    <div class="header-title">
+      CIS046-3 Software for Enterprise – AY 23/24
+    </div>
+
+    <!-- Student Meta Details -->
+    <div class="meta-grid">
+      <div class="meta-item">
+        <strong>Student Name:</strong> Iswariya Kirubananthan
+      </div>
+      <div class="meta-item">
+        <strong>Student Number:</strong> 2541869
+      </div>
+      <div class="meta-item">
+        <strong>Student Signature:</strong> <span class="signature-text">K. Iswariya</span>
+      </div>
+      <div class="meta-item">
+        <strong>Date:</strong> November 2023 (Week 8)
+      </div>
+    </div>
+
+    <!-- Instructions -->
+    <div class="instructions">
+      Please answer the questions below, print this form and bring it to the presentation where it will be checked against reality and signed off by the tutor. Once signed off, scan this form and submit on BREO with all other deliverables (video, code). At this stage, Week 8, (at least) a working prototype should be presented plus some ideas on how to continue with the development.
+    </div>
+
+    <!-- 1. Version Control -->
+    <div class="section-card">
+      <div class="section-heading">Version Control</div>
+      <div class="section-question">How did you develop your code (e.g., what features have ben added after first version)?</div>
+      <div class="section-answer">
+        I developed the project using a GitHub repository following a structured feature-branch workflow. Starting from an initial project setup on the main branch, I developed the SQLite database authentication, the Banana API game engine, and the frontend interface on dedicated feature branches (feature/database-auth, feature/game-engine, and feature/frontend-ui), subsequently adding Google Sign-In, UI animations, and automated unit tests before merging all branches back into main.
+      </div>
+    </div>
+
+    <!-- 2. Event Driven Architectures -->
+    <div class="section-card">
+      <div class="section-heading">Event Driven Architectures</div>
+      <div class="section-question">What in your code triggers events (e.g., GUI, buttons, timeout …)?</div>
+      <div class="section-answer">
+        Events are triggered by user GUI actions including submit button clicks, difficulty selections, Google login modal triggers, and pressing the Enter key on the answer input. In addition, a JavaScript setInterval countdown timer triggers periodic visual urgency ticks and dispatches an automatic timeout penalty event when time reaches zero, using asynchronous fetch() API calls to update the score, lives, and puzzle image without reloading the page.
+      </div>
+    </div>
+
+    <!-- 3. Interoperability -->
+    <div class="section-card">
+      <div class="section-heading">Interoperability</div>
+      <div class="section-question">Do you use the API https://marcconrad.com/uob/tomato/api.php? If no, where in your code do you demonstrate interoperability? What protocols do you use?</div>
+      <div class="section-answer">
+        No, I integrated the official University of Bedfordshire Banana Game API (http://marcconrad.com/uob/banana/api.php?out=json) located in services/banana_service.py. The service communicates over the HTTP GET protocol using Python requests to retrieve and parse dynamic JSON puzzle payloads, and includes a 6-second timeout with an automated offline fallback mechanism to ensure gameplay continues seamlessly if the external server becomes unavailable.
+      </div>
+    </div>
+
+    <!-- 4. Virtual Identity -->
+    <div class="section-card">
+      <div class="section-heading">Virtual Identity</div>
+      <div class="section-question">How did you implement virtual identity in your code? (e.g., Passwords, Cookies, IP Numbers …)</div>
+      <div class="section-answer">
+        Virtual identity is established through user registration and stored in an SQLite database, where passwords are cryptographically salted and hashed using Werkzeug rather than plaintext. Active player sessions are secured using signed HTTP-only cookies (session['user_id']), private routes like the dashboard and game arena are guarded by a @login_required decorator, and completed game scores are permanently linked to the user's account with optional Google Sign-In authentication.
+      </div>
+    </div>
+
+    <!-- 5. Other Interesting Features -->
+    <div class="section-card" style="margin-bottom: 0;">
+      <div class="section-heading">Any other interesting features:</div>
+      <div class="section-answer">
+        The architecture keeps correct puzzle solutions strictly on the Python backend so players cannot inspect frontend code to cheat. The game also enforces three distinct backend difficulty levels (Easy, Medium, Hard), delivers dynamic feedback through victory confetti and wrong-answer card shakes, and is verified by a 9-suite automated unit test framework in test_app.py.
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
