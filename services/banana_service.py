@@ -73,7 +73,7 @@ class BananaApiService:
             Exception if both live API and fallback are unreachable.
         """
         headers = {
-            "User-Agent": "BananaQuest-GameEngine/1.0 (University of Bedfordshire Assignment Client)"
+            "User-Agent": "ChimpLogic-NexusEngine/1.0 (University of Bedfordshire Assignment Client)"
         }
 
         try:

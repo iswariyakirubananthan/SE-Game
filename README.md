@@ -1,4 +1,4 @@
-# 🍌 Banana Quest – Brain Challenge
+# 🐵 ChimpLogic – The Banana Nexus
 
 A web-based mathematical puzzle game developed using **Python (Flask)**, **SQLite**, **HTML5/CSS3/JavaScript**, and the **University of Bedfordshire Banana Game API**.
 
@@ -270,7 +270,7 @@ Use this structured presentation plan for your assignment video:
 
 | Timestamp | Section | Key Discussion Points |
 |---|---|---|
-| **0:00 - 1:30** | **Introduction & Architecture** | Introduce *Banana Quest*. Explain the 3-tier distributed architecture (Browser Frontend → Python Flask Backend → SQLite Database + Banana API). Emphasize that the backend keeps the answer secret to prevent cheating. |
+| **0:00 - 1:30** | **Introduction & Architecture** | Introduce *ChimpLogic – The Banana Nexus*. Explain the 3-tier distributed architecture (Browser Frontend → Python Flask Backend → SQLite Database + Banana API). Emphasize that the backend keeps the answer secret to prevent cheating. |
 | **1:30 - 3:30** | **Theme D: Virtual Identity & Auth** | Demonstrate Registration (`/register`) and Login (`/login`). Show input validation and explain Werkzeug password hashing. Show session cookie handling and the `@login_required` decorator guarding the Dashboard. |
 | **3:30 - 5:30** | **Theme B: Interoperability & Live Gameplay** | Start a Medium game. Explain how Python `requests` sends an HTTP GET request to `marcconrad.com`, parses the JSON payload, and loads the image. Mention the 6-second timeout and fallback mechanism for fault tolerance. |
 | **5:30 - 7:30** | **Theme C: Event-Driven Programming** | Show the game arena: explain DOM click events, the Enter key submission, the `setInterval` countdown timer, and the Fetch API asynchronous state transitions without page reload. Intentionally answer incorrectly to demonstrate life deduction and Game Over. |
