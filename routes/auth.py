@@ -147,6 +147,48 @@ def login():
     return render_template('login.html')
 
 
+@auth_bp.route('/google-login', methods=['GET', 'POST'])
+def google_login():
+    """
+    Google Sign-In Integration (Theme D: Virtual Identity & OAuth Simulation)
+    Allows players to sign in or register instantly using their Google account identity.
+    Supports:
+      1. One-click simulated Google account authentication (ideal for offline marking & demo)
+      2. Custom Google account email entry
+      3. Automatic SQLite user record synchronization & session cookie generation
+    """
+    if request.method == 'POST':
+        google_email = request.form.get('google_email', '').strip().lower()
+        google_name = request.form.get('google_name', '').strip()
+    else:
+        google_email = request.args.get('email', '').strip().lower()
+        google_name = request.args.get('name', '').strip()
+
+    # Default fallback account if no email provided
+    if not google_email:
+        google_email = "student.uob@gmail.com"
+        google_name = "Bedfordshire Gamer"
+
+    if not is_valid_email(google_email):
+        flash("Invalid Google email address provided.", "danger")
+        return redirect(url_for('auth.login'))
+
+    user, error = UserModel.get_or_create_google_user(google_email, google_name)
+    if error:
+        flash(error, "danger")
+        return redirect(url_for('auth.login'))
+
+    # Initialize authenticated session identity
+    session.clear()
+    session['user_id'] = user['id']
+    session['username'] = user['username']
+    session['auth_provider'] = 'google'
+    session.permanent = True
+
+    flash(f"✨ Successfully signed in with Google as {user['username']} ({google_email})!", "success")
+    return redirect(url_for('dashboard.index'))
+
+
 @auth_bp.route('/logout')
 def logout():
     """

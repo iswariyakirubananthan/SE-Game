@@ -46,16 +46,23 @@
 body {
   font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   background-color: var(--bg-dark);
-  background-image: 
-    radial-gradient(circle at 15% 20%, rgba(124, 58, 237, 0.18) 0%, transparent 40%),
-    radial-gradient(circle at 85% 80%, rgba(14, 165, 233, 0.15) 0%, transparent 45%),
-    radial-gradient(circle at 50% 50%, rgba(251, 191, 36, 0.05) 0%, transparent 50%);
+  background: 
+    radial-gradient(circle at 10% 15%, rgba(124, 58, 237, 0.28) 0%, transparent 40%),
+    radial-gradient(circle at 90% 85%, rgba(14, 165, 233, 0.24) 0%, transparent 45%),
+    radial-gradient(circle at 50% 10%, rgba(236, 72, 153, 0.20) 0%, transparent 40%),
+    radial-gradient(circle at 85% 25%, rgba(251, 191, 36, 0.16) 0%, transparent 35%),
+    radial-gradient(circle at 15% 80%, rgba(16, 185, 129, 0.18) 0%, transparent 35%),
+    #0c0919;
+  background-size: 150% 150%;
+  animation: meshBreathe 16s ease-in-out infinite alternate;
   background-attachment: fixed;
   color: var(--text-main);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   line-height: 1.6;
+  position: relative;
+  overflow-x: hidden;
 }
 
 a {
@@ -94,15 +101,18 @@ a:hover {
 }
 
 .brand-icon {
-  font-size: 1.8rem;
-  filter: drop-shadow(0 0 10px var(--banana-glow));
-  animation: float 3s ease-in-out infinite;
+  font-size: 2rem;
+  filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.7));
+  animation: float 2.5s ease-in-out infinite;
+  display: inline-block;
 }
 
 .brand-highlight {
-  background: linear-gradient(135deg, var(--banana-yellow), #f59e0b);
+  background: linear-gradient(135deg, #fbbf24 0%, #ec4899 45%, #38bdf8 100%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: textShine 4s linear infinite;
 }
 
 .nav-links {
@@ -291,13 +301,179 @@ a:hover {
   border-radius: var(--radius-lg);
   padding: 2rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: border-color var(--transition-fast), transform var(--transition-fast);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: all var(--transition-normal);
+  position: relative;
 }
 
 .card:hover {
-  border-color: rgba(124, 58, 237, 0.6);
+  border-color: rgba(147, 51, 234, 0.7);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(124, 58, 237, 0.3);
+}
+
+.card-glow {
+  background: linear-gradient(145deg, rgba(28, 20, 58, 0.9), rgba(16, 12, 36, 0.95));
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(124, 58, 237, 0.25);
+}
+
+.card-glow:hover {
+  border-color: rgba(56, 189, 248, 0.6);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(56, 189, 248, 0.3);
+}
+
+/* Google Sign-In Button & Auth Dividers */
+.btn-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 0.85rem 1.25rem;
+  background: #ffffff;
+  color: #1f2937;
+  font-weight: 700;
+  font-size: 0.98rem;
+  border-radius: var(--radius-md);
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  user-select: none;
+}
+
+.btn-google:hover {
+  background: #f8fafc;
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3), 0 0 20px rgba(66, 133, 244, 0.4);
+  transform: translateY(-2px);
+  color: #111827;
+}
+
+.btn-google:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.auth-divider::before, .auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.auth-divider span {
+  padding: 0 0.85rem;
+}
+
+.google-modal-card {
+  max-width: 420px;
+}
+
+.google-accounts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.google-account-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.google-account-item:hover {
+  background: rgba(66, 133, 244, 0.2);
+  border-color: #4285F4;
+  transform: translateX(4px);
+}
+
+.google-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: #ffffff;
+  font-size: 1.15rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-pulse {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-pulse::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transform: rotate(30deg) translate(-100%, 0);
+  transition: transform 0.6s ease;
+}
+
+.btn-pulse:hover::after {
+  transform: rotate(30deg) translate(100%, 0);
+}
+
+.animated-emoji {
+  display: inline-block;
+  font-size: 3.2rem;
+  animation: bounceEmoji 2s ease-in-out infinite;
+}
+
+/* Shake Card on Error */
+.card-shake {
+  animation: shakeCard 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  border-color: var(--danger-rose) !important;
+  box-shadow: 0 0 35px rgba(244, 63, 94, 0.6) !important;
+}
+
+/* Confetti Canvas */
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Floating Ambient Background Emojis */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.floating-item {
+  position: absolute;
+  opacity: 0.18;
+  filter: blur(0.5px);
+  user-select: none;
+  animation: floatAmbient 18s ease-in-out infinite alternate;
 }
 
 /* Forms & Inputs */
@@ -936,6 +1112,48 @@ a:hover {
 @keyframes scaleUp {
   from { transform: scale(0.8); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes meshBreathe {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+@keyframes textShine {
+  to { background-position: 200% center; }
+}
+
+@keyframes bounceEmoji {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-8px) rotate(-6deg); }
+  75% { transform: translateY(-4px) rotate(6deg); }
+}
+
+@keyframes shakeCard {
+  10%, 90% { transform: translate3d(-3px, 0, 0); }
+  20%, 80% { transform: translate3d(5px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+  40%, 60% { transform: translate3d(6px, 0, 0); }
+}
+
+@keyframes floatAmbient {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-40px) rotate(15deg); }
+  100% { transform: translateY(20px) rotate(-15deg); }
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.22); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.15); }
+  70% { transform: scale(1); }
+}
+
+.heart-beating {
+  display: inline-block;
+  animation: heartBeat 1.3s ease-in-out infinite;
 }
 
 /* Responsive Breakpoints */

@@ -11,6 +11,8 @@ Demonstrates:
 from werkzeug.security import generate_password_hash, check_password_hash
 from database import get_db
 import sqlite3
+import secrets
+import re
 
 
 class UserModel:
@@ -111,3 +113,51 @@ class UserModel:
             "total_score": row["total_score"],
             "average_score": row["average_score"]
         }
+
+    @staticmethod
+    def get_or_create_google_user(email, full_name=None):
+        """
+        Retrieves or registers an authenticated Google user.
+        Links Google virtual identity to SQLite users table.
+        """
+        db = get_db()
+        clean_email = email.strip().lower()
+        user = UserModel.get_by_email(clean_email)
+        if user:
+            return user, None
+
+        # Derive a base username from the email or full_name
+        if full_name and full_name.strip():
+            base_username = re.sub(r'[^a-zA-Z0-9_]', '', full_name.strip().replace(' ', '_'))
+        else:
+            base_username = clean_email.split('@')[0]
+            base_username = re.sub(r'[^a-zA-Z0-9_]', '', base_username)
+
+        if len(base_username) < 3:
+            base_username = f"user_{base_username}"
+        base_username = base_username[:18]
+
+        # Ensure uniqueness of username
+        candidate = base_username
+        counter = 1
+        while UserModel.get_by_username(candidate) is not None:
+            candidate = f"{base_username[:14]}_{counter}"
+            counter += 1
+
+        # Generate a high-entropy random password hash for OAuth user
+        random_pw = secrets.token_urlsafe(32)
+        password_hash = generate_password_hash(random_pw)
+
+        try:
+            cursor = db.execute(
+                """
+                INSERT INTO users (username, email, password_hash)
+                VALUES (?, ?, ?)
+                """,
+                (candidate, clean_email, password_hash)
+            )
+            db.commit()
+            new_user = UserModel.get_by_id(cursor.lastrowid)
+            return new_user, None
+        except Exception as e:
+            return None, f"Failed to register Google user: {str(e)}"

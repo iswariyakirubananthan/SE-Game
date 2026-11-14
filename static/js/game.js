@@ -191,18 +191,21 @@ class BananaGameEngine {
       const data = await response.json();
 
       if (data.status === 'correct') {
+        this.triggerConfetti();
         this.showFeedback('correct', data.message);
         this.updateHUD(data.score, data.lives, data.question_number);
         this.answerInput.value = '';
         this.loadPuzzleImage(data.next_question_image);
         this.startTimer();
       } else if (data.status === 'wrong') {
+        this.shakePuzzleCard();
         this.showFeedback('wrong', data.message);
         this.updateHUD(data.score, data.lives, data.question_number);
         this.answerInput.value = '';
         this.loadPuzzleImage(data.next_question_image);
         this.startTimer();
       } else if (data.status === 'game_over') {
+        this.shakePuzzleCard();
         this.triggerGameOver(data.final_score, data.message);
       } else {
         this.showFeedback('wrong', data.message || 'Error submitting answer');
@@ -280,6 +283,72 @@ class BananaGameEngine {
     this.modalFinalScore.textContent = finalScore;
     this.modalReason.textContent = reason;
     this.gameOverModal.classList.add('active');
+  }
+
+  shakePuzzleCard() {
+    const card = document.querySelector('.puzzle-card');
+    if (card) {
+      card.classList.remove('card-shake');
+      void card.offsetWidth; // trigger reflow
+      card.classList.add('card-shake');
+      setTimeout(() => card.classList.remove('card-shake'), 600);
+    }
+  }
+
+  triggerConfetti() {
+    const canvas = document.getElementById('confetti-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const colors = ['#fbbf24', '#f43f5e', '#38bdf8', '#10b981', '#a855f7', '#f59e0b', '#ec4899'];
+    const particles = [];
+    for (let i = 0; i < 65; i++) {
+      particles.push({
+        x: canvas.width / 2 + (Math.random() - 0.5) * 150,
+        y: canvas.height * 0.45,
+        vx: (Math.random() - 0.5) * 16,
+        vy: (Math.random() - 0.75) * 18,
+        size: Math.random() * 8 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rotation: Math.random() * 360,
+        spin: (Math.random() - 0.5) * 12,
+        alpha: 1
+      });
+    }
+
+    let animationFrame;
+    const render = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let alive = false;
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.48; // gravity
+        p.rotation += p.spin;
+        p.alpha -= 0.016;
+
+        if (p.alpha > 0) {
+          alive = true;
+          ctx.save();
+          ctx.globalAlpha = p.alpha;
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+          ctx.restore();
+        }
+      });
+
+      if (alive) {
+        animationFrame = requestAnimationFrame(render);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        cancelAnimationFrame(animationFrame);
+      }
+    };
+    render();
   }
 
   async quitGame() {

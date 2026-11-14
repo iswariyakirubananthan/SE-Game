@@ -11,6 +11,18 @@
 </head>
 <body>
 
+  <!-- Ambient Floating Background Particles (Theme Enhancement) -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="floating-item" style="top: 12%; left: 8%; font-size: 3rem; animation-duration: 22s;">🍌</div>
+    <div class="floating-item" style="top: 75%; left: 12%; font-size: 2.5rem; animation-duration: 26s; animation-delay: 2s;">✨</div>
+    <div class="floating-item" style="top: 25%; right: 10%; font-size: 3.2rem; animation-duration: 20s; animation-delay: 4s;">🐵</div>
+    <div class="floating-item" style="top: 65%; right: 15%; font-size: 2.8rem; animation-duration: 24s; animation-delay: 1s;">⚡</div>
+    <div class="floating-item" style="top: 45%; left: 50%; font-size: 2.2rem; animation-duration: 28s; animation-delay: 5s;">🍌</div>
+  </div>
+
+  <!-- Victory Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
   <!-- Navigation Bar -->
   <header class="navbar">
     <a href="{{ url_for('home.index') }}" class="nav-brand">

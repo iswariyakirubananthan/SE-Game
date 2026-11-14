@@ -103,6 +103,18 @@ class BananaQuestTestCase(unittest.TestCase):
         self.assertIn(b'gamer', res.data)
         self.assertIn(b'Highest Score', res.data)
 
+    def test_google_sign_in_flow(self):
+        """Validates instant Google sign-in and user provisioning."""
+        res = self.client.get('/google-login?email=student.uob@gmail.com&name=Bedfordshire Gamer', follow_redirects=True)
+        self.assertEqual(res.status_code, 200)
+        self.assertIn(b'Successfully signed in with Google', res.data)
+        self.assertIn(b'Bedfordshire', res.data)
+
+        # Verify Google virtual identity in session
+        with self.client.session_transaction() as sess:
+            self.assertIn('user_id', sess)
+            self.assertEqual(sess.get('auth_provider'), 'google')
+
     # -------------------------------------------------------------
     # Module 4: Route Protection (Virtual Identity)
     # -------------------------------------------------------------

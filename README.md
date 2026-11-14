@@ -150,6 +150,7 @@ banana-quest/
 
 ### D. Virtual Identity
 - **User Account Registration**: Captures username and email with input validation (length, character sets, valid email format).
+- **Google Sign-In Option**: Features integrated Google authentication with simulated account selection and automated OAuth user provisioning in SQLite.
 - **Cryptographic Security**: Passwords are never stored in plaintext. They are salted and hashed using **Werkzeug**'s scrypt/pbkdf2 implementation (`generate_password_hash` and `check_password_hash`).
 - **Session-Based Authentication**: Authenticated player identities are stored inside cryptographically signed Flask session cookies (`session['user_id']`).
 - **Access Control**: A custom `@login_required` Python decorator prevents unauthenticated visitors from accessing `/dashboard`, `/game/play`, or `/profile`.
