@@ -1,7 +1,7 @@
 """
 app.py - Main Application Factory and Server Entry Point
 =======================================================
-Banana Quest - Brain Challenge
+ChimpLogic - The Banana Nexus
 University of Bedfordshire - Computer Science Assignment
 
 Architecture: Distributed Architecture
@@ -43,7 +43,7 @@ def create_app(test_config=None):
 
     # Core Security & Session Configuration
     app.config.from_mapping(
-        SECRET_KEY=os.environ.get('SECRET_KEY', 'banana-quest-super-secret-key-uob-2026'),
+        SECRET_KEY=os.environ.get('SECRET_KEY', 'chimplogic-banana-nexus-secret-uob-2026'),
         PERMANENT_SESSION_LIFETIME=timedelta(days=7),
         SESSION_COOKIE_HTTPONLY=True,       # Mitigates XSS cookie theft
         SESSION_COOKIE_SAMESITE='Lax',      # Mitigates CSRF
@@ -70,7 +70,7 @@ def create_app(test_config=None):
     @app.context_processor
     def inject_app_metadata():
         return {
-            'app_title': 'Banana Quest – Brain Challenge',
+            'app_title': 'ChimpLogic – The Banana Nexus',
             'current_year': 2026
         }
 
@@ -92,7 +92,7 @@ app = create_app()
 if __name__ == '__main__':
     # Run the Flask development server on localhost:5000
     print("=" * 60)
-    print("  Banana Quest – Brain Challenge is starting!")
+    print("  ChimpLogic – The Banana Nexus is starting!")
     print("  Local Server: http://127.0.0.1:5000")
     print("=" * 60)
     app.run(host='127.0.0.1', port=5000, debug=True)
